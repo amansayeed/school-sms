@@ -1,2 +1,3 @@
-<h1> hi this is your first page 
-</h1>
+
+
+@extends ('admin.layouts.layout');
