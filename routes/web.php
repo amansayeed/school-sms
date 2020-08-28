@@ -20,6 +20,9 @@ use Illuminate\Support\Facades\Route;
  Route::get('/listSection',"ClassSectionController@listSchoolSection")->name("listclasssection");
  Route::get('/addclass',"SchoolClassController@addSchoolclass")->name("addclass");
  Route::get('/listclass',"SchoolClassController@listSchoolclass")->name("listclass");
+//fetch list class route
+ Route::get('/getClassSection',"ClassSectionController@listAllclassSection")->name("getClassSection");
+ Route::get('/getClass',"SchoolClassController@listAllclass")->name("getAllClass");
 
  //faculty route
 
@@ -28,8 +31,16 @@ use Illuminate\Support\Facades\Route;
  Route::get('/addfaculty',"FacultyController@addFaculties")->name("addfaculty");
  Route::get('/listfaculty',"FacultyController@listFaculties")->name("listfaculty");
 
+ //fetch list faculty route
+ Route::get('/lisAlltype',"FacultyTypeController@listAllFacultytype")->name("listAlltype");
+ Route::get('/listAllfaculty',"FacultyController@listAllFaculties")->name("list-All-faculty");
+
+
+
 
  //students route
 
 Route::get('/addstudent',"StudentController@addstudents")->name("addstudent");
 Route::get('/liststudent',"StudentController@liststudents")->name("liststudent");
+//fetch list student route
+Route::get('/listallstudent',"StudentController@listallstudents")->name("list-all-student");

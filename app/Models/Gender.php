@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Gender extends Model
 {
-    protected $tbale="tbl_genders";
+    protected $table="tbl_genders";
 }
