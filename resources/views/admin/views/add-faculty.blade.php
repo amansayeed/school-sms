@@ -34,15 +34,30 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" id="frm-add-faculty" method="" >
+              <form role="form" id="frm-add-faculty" method="POST" action="{{route('addfacultydetail')}}"  enctype="multipart/from-data" >
+              @csrf
                 <div class="card-body">
 
 
                 <div class="form-group">
                     <label for="faculty_type">Faculty Type</label>
-                 <select name="status" id="faculty_type" class="form-control" >
-                     <option value="1">Taching </option>
-                     <option value="2">NonTaching</option>
+                    <select name="status" id="faculty_type" class="form-control" >
+                    <option value="-1">Seclect Sections </option>
+                    @if(count($faculties)>0)
+                    {
+                      @foreach( $faculties as $key=>$faculties )
+
+
+                      {
+                        <option value="{{$faculties->id}}">{{$faculties->type}}</option>
+                      }
+                      @endforeach
+
+                    }
+                    @endif
+                 
+                    
+                    
                  </select>
                   </div>
                   
@@ -67,23 +82,32 @@
                   <div class="form-group">
                     <label for="faculty_gender">Faculty Gender</label>
                  <select name="faculty_gender" id="faculty_gender" class="form-control" >
-                     <option value="1">Male  </option>
-                     <option value="2">Female</option>
+                 <option value="-1">Seclect Sections </option>
+                 @if(count($genders)>0)
+                    {
+                      @foreach( $genders as $key=>$genders )
+
+
+                      {
+                        <option value="{{$genders->id}}">{{$genders->type}}</option>
+                      }
+                      @endforeach
+
+                    }
+                    @endif
+                 
                  </select>
                   
 
-                 <div class="form-group">
-                    <label for="exampleInputFile"> Faculty Picture</label>
-                    <div class="input-group">
-                      <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="exampleInputFile">
-                        <label class="custom-file-label" for="exampleInputFile">Choose file</label>
-                      </div>
-                      <div class="input-group-append">
-                        <span class="input-group-text" id="">Upload</span>
-                      </div>
-                    </div>
-                  </div>
+              
+
+                  <div class="form-group">
+                                <label for="faculty_photo">Profile Photo</label>
+                                <input type="file" class="form-control " id="faculty_photo" name='faculty_photo'>
+                            </div>
+
+
+                  
 
                  <div class="form-group">
                     <label for="faculty_adress">Faculty Address  </label>

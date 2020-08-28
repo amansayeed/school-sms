@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Faculty;
+use App\Models\FacultyType;
+use App\Models\Gender;
 use Illuminate\Http\Request;
 use Datatables;
 use DB;
@@ -10,8 +12,11 @@ use DB;
 class FacultyController extends Controller
 {
     public function addFaculties()
-    {
-        return view('admin.views.add-faculty');
+    {   
+        $all_section=FacultyType::where(['status'=>1])->get();
+        $all_Gender=Gender::where(['status'=>1])->get();
+
+        return view('admin.views.add-faculty',['faculties'=>$all_section,"genders"=>$all_Gender]);
     }
 
     public function listFaculties()
@@ -49,5 +54,10 @@ class FacultyController extends Controller
                         })
                         ->rawColumns(["action_btns", "profile_photo"])
                         ->make(true);
+    }
+
+    public function addFacultiesdetail(Request $request)
+    {
+        return $request->all();
     }
 }

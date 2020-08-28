@@ -44,7 +44,7 @@ Route::post('/addFullclass',"SchoolClassController@addSchoolFullclass")->name("a
 
  //submit faculty route
  Route::post('/addfacultytype',"FacultyTypeController@submitFacultytype")->name("addfacultytype");
- Route::Post('/addfacultydetail',"FacultyController@addFacultiesdetail")->name("addfacultydetail");
+ Route::post('/addfacultydetail',"FacultyController@addFacultiesdetail")->name("addfacultydetail");
 
 
 
