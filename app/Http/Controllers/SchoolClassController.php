@@ -3,16 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\SchoolClass;
+use App\Models\ClassSection;
 use Illuminate\Http\Request;
 use Datatables;
 use DB;
-
+use Validator;
 class SchoolClassController extends Controller
 {
 
     public function addSchoolclass()
-    {
-        return view('admin.views.addclass');
+    {        
+       $all_section= ClassSection::where(['status'=>1])->get();
+
+        return view('admin.views.addclass',['sections'=>$all_section]);
     }
 
 
@@ -42,5 +45,43 @@ class SchoolClassController extends Controller
         ->rawColumns(["action_btns", "status"])
        ->make(true);
     }
+
+    public function addSchoolFullclass( Request $request)
+    {
+       // print_r($request->all());
+
+       $validator = Validator::make(array(
+        "class_name"=>$request->class_name,
+        "class_section"=>$request->class_section,
+        "seats"=>$request->seats,
+
+    ),array(
+        "class_name"=>"required|min:5",
+        "class_section"=>"required|not_in:-1",
+        "seats"=>"required",
+
+    ));
+
+    if($validator->fails()){
+
+        return redirect("addclass")->withErrors($validator)->withInput();
+    }else{
+
+        // successfully we have passed our form
+        $section = new SchoolClass;
+        //$print_r($section);
+        $section->name = $request->class_name;
+        $section->class_section_id = $request->class_section;
+        $section->seats_available = $request->seats;
+        $section->status = $request->class_status;
+
+        $section->save();
+
+        $request->session()->flash("message","Class Section has been created successfully");
+
+        return redirect("addclass");
+
+    }
+}
 
 }

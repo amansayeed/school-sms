@@ -31,10 +31,27 @@
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Add Faculty Type</h3>
+                @if(session()->has("message"))
+                    <div class="alert alert-success">
+                        <p>{{ session('message') }}</p>
+                    </div>
+                    @endif
+
+                    @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                        @foreach($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                    @endif
+              </div>
+
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" id="frm-add-faculty-type" method="" >
+              <form role="form" id="frm-add-faculty-type" method="POST" action="{{route('addfacultytype')}}" >
+
+              @csrf
                 <div class="card-body">
                   <div class="form-group">
                     <label for="faculty_type_Name">Faculty Type Name </label>

@@ -34,10 +34,25 @@
             <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Add Class Sections</h3>
+
+                @if(session()->has("message"))
+                    <div class="alert alert-success">
+                        <p>{{ session('message') }}</p>
+                    </div>
+                    @endif
+
+                    @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                        @foreach($errors->all() as $error)
+                        <p>{{ $error }}</p>
+                        @endforeach
+                    </div>
+                    @endif
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form role="form" id="frm-add-class" method="" >
+              <form role="form" id="frm-add-class" method="POST" action="{{route('addFullclass')}}" >
+              @csrf
                 <div class="card-body">
                   <div class="form-group">
                     <label for="class_name">Class Name </label>
@@ -46,11 +61,24 @@
 
                   <div class="form-group">
                     <label for="class_section">Choose Section</label>
-                 <select name="class_section" id="status" class="form-control" >
-                     <option value="1">A</option>
-                     <option value="2">B</option>
-                     <option value="3">C</option>
-                     <option value="4">D</option>
+                    <select name="class_section" id="status" class="form-control" >
+                    <option value="-1">Seclect Sections </option>
+
+                    @if(count($sections)>0)
+                    {
+                      @foreach( $sections as $key=>$section )
+
+
+                      {
+                        <option value="{{$section->id}}">{{$section->section}}</option>
+                      }
+                      @endforeach
+
+                    }
+                    @endif
+                 
+                     
+                    
                  </select>
                   </div>
 

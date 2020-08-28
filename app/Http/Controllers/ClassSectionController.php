@@ -7,12 +7,44 @@ use App\Models\ClassSection;
 use Illuminate\Http\Request;
 use Datatables;
 use DB;
+use Validator;
 
 class ClassSectionController extends Controller
 {
     public function addSchoolSection()
     {
        return  view('admin.views.addsection');
+    }
+
+
+    public function addClassSection(Request $request){
+
+    $validator = Validator::make(array(
+        "section"=>$request->section_name
+    ),array(
+        "section"=>"required|unique:tbl_class_sections"
+    ));
+
+    if($validator->fails()){
+
+        return redirect("addSection")->withErrors($validator)->withInput();
+    }else{
+
+        // successfully we have passed our form
+        $section = new ClassSection;
+        //$print_r($section);
+        $section->section = $request->section_name;
+        $section->status = $request->dd_status;
+
+        $section->save();
+
+        $request->session()->flash("message","Class Section has been created successfully");
+
+        return redirect("addSection");
+    }
+
+
+
     }
 
     public function listSchoolSection()

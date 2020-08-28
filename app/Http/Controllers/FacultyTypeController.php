@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\FacultyType;
 use Illuminate\Http\Request;
 use Datatables;
+use Validator;
 
 class FacultyTypeController extends Controller
 {
@@ -42,6 +43,51 @@ class FacultyTypeController extends Controller
             
             ->rawColumns(["action_btns", "status"])
            ->make(true);
+    }
+
+    public function submitFacultytype( Request $request)
+
+    {
+
+        //print_r($request->all());
+
+       $validate= Validator::make(
+            array(
+                "faculty_type_Name"=>$request->faculty_type_Name,
+                "status"=>$request->status
+
+            ),
+            array(
+                "faculty_type_Name"=>"required|min:5",
+                "status"=>"required"
+
+            )
+
+            );
+
+
+                if($validate->fails())
+                {
+
+                    return redirect("addtype")->withErrors($validate)->withInput();
+                }
+                else 
+                {
+                    $section= new FacultyType;
+                    $section->type = $request->faculty_type_Name;
+                    $section->status=$request->status;
+                    $section->save();
+
+                    $request->session()->flash("message","Class Section has been created successfully");
+            
+                    return redirect("addtype");
+
+
+                }
+
+
+
+
     }
 
 }

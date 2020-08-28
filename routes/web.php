@@ -23,6 +23,13 @@ use Illuminate\Support\Facades\Route;
 //fetch list class route
  Route::get('/getClassSection',"ClassSectionController@listAllclassSection")->name("getClassSection");
  Route::get('/getClass',"SchoolClassController@listAllclass")->name("getAllClass");
+//submit class route
+Route::post('/add_class',"ClassSectionController@addClassSection")->name("addSectionclass");
+Route::post('/addFullclass',"SchoolClassController@addSchoolFullclass")->name("addFullclass");
+
+
+
+
 
  //faculty route
 
@@ -35,6 +42,9 @@ use Illuminate\Support\Facades\Route;
  Route::get('/lisAlltype',"FacultyTypeController@listAllFacultytype")->name("listAlltype");
  Route::get('/listAllfaculty',"FacultyController@listAllFaculties")->name("list-All-faculty");
 
+ //submit faculty route
+ Route::post('/addfacultytype',"FacultyTypeController@submitFacultytype")->name("addfacultytype");
+ Route::Post('/addfacultydetail',"FacultyController@addFacultiesdetail")->name("addfacultydetail");
 
 
 
